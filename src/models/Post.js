@@ -145,7 +145,7 @@ class Post {
 
       // Clean up author property in each post object
       posts = posts.map(post => {
-        if (currentUserId) post.isVisitorAuthor = post.author._id.equals(currentUserId);
+        if (currentUserId) post.isVisitorAuthor = String(post.author._id) === String(currentUserId);
 
         post.author = {
           username: post.author.username,

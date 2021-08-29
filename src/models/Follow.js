@@ -35,7 +35,7 @@ class Follow {
       if (!doesFollowAlreadyExist) this.errors.push(`You are not following this user!`);
     }
 
-    if (this.followedId.equals(this.userId)) this.errors.push('You cannot follow yourself!');
+    if (String(this.followedId) === String(this.userId)) this.errors.push('You cannot follow yourself!');
   }
 
   create() {

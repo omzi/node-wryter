@@ -138,7 +138,7 @@ exports.sharedProfileData = async (req, res, next) => {
   let isUserOnOwnProfile = false;
   let isFollowing = false;
   if (req.session.user) {
-    isUserOnOwnProfile = req.profileUser._id.equals(req.currentUserId);
+    isUserOnOwnProfile = String(req.profileUser._id) === String(req.currentUserId);
     isFollowing = await Follow.isUserFollowing(req.profileUser._id, req.currentUserId);
   }
 
