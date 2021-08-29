@@ -54,11 +54,9 @@ if (prodEnv) {
   app.set('trust proxy', 1); // Trust first proxy
 }
 
-session(sessionOptions);
-
 !prodEnv && app.use(require('morgan')('dev'));
 
-app.use(sessionOptions);
+app.use(session(sessionOptions));
 app.use(flash());
 app.use((req, res, next) => {
   res.locals.successMessages = req.flash('successMessages');
