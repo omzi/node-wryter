@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('partials/header') %>
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <div class="container py-md-5 container--narrow footer-padding">
+    <%- include('includes/profileShared') %>
+
+      <% if (userPosts.length) { %>
+        <div class="list-group">
+          <% userPosts.forEach(post => { %>
+            <a href="/@<%= post.author.username %>/post/<%= post.slug %>" target="_blank" class="list-group-item list-group-item-action">
+              <img loading="lazy" class="avatar-tiny" src="<%= post.author.avatar %>">
+              <strong><%= post.title %></strong> on <%= helpers.formatDate(post.createdAt.toDateString()) %>
+            </a>
+          <% }) %>
+        </div>
+      <% } else { %>
+        <div class="text-center">
+          <img loading="lazy" src="/images/no-post-state.png" alt="...">
+          <p>Nothing to see here</p>
+        </div>
+      <% } %>
+  </div>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('partials/header') %>
+  <link rel="stylesheet" href="/css/code.css">
+</head>
+<body>
+  <%- include('partials/navbar') %>
+  
+  <div class="container py-md-5 container--narrow footer-padding">
+    <div class="d-flex justify-content-between">
+      <h2><%= post.title %></h2>
+      <% if (post.isVisitorAuthor) { %>
+        <span class="pt-2">
+          <a href="/@<%= post.author.username %>/posts/edit/<%= post.slug %>" class="text-primary mr-2" data-toggle="tooltip" data-placement="top" title="Edit"><i class="material-icons">edit</i></a>
+          <form class="delete-post-form d-inline" action="/@<%= post.author.username %>/posts/delete/<%= post.slug %>" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="delete-post-button text-danger" data-toggle="tooltip" data-placement="top" title="Delete"><i class="material-icons">delete</i></button>
+          </form>
+        </span>
+      <% } %>
+    </div>
+      
+    <p class="text-muted small mb-4">
+      <a href="/@<%= post.author.username %>"><img loading="lazy" class="avatar-tiny" src="<%= post.author.avatar %>"></a>
+      Posted by <a href="/@<%= post.author.username %>"><%= post.author.username %></a> on <%= helpers.formatDate(post.createdAt.toDateString()) %></p>
+
+    <div class="body-content">
+      <%- convertMarkdown(post.body) %>
+    </div>
+
+  </div>
+  
+  <%- include('partials/footer') %>
+  <script>
+    document.querySelectorAll('pre').forEach(pre => {
+      pre.classList.add('hljs');
+      pre.setAttribute('data-theme', 'one-dark');
+    });
+
+    document.addEventListener('click', e => {
+      if (e.target.matches('.body-content a')) {
+        e.preventDefault();
+        const url = e.target.getAttribute('href');
+
+        if (!url.startsWith('#')) window.open(url);
+      }
+    })
+  </script>
+</body>
+</html>

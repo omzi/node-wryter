@@ -1,0 +1,25 @@
+  <!-- Footer -->
+  <footer class="border-top text-center small text-light py-3">
+    <p class="m-0">Copyright &copy; 2021, <a href="/" class="text-light">Node Wryter</a>. All Rights Reserved.</p>
+  </footer>
+
+  <% if (user) { %>
+    <div id="chat-wrapper" class="chat-wrapper shadow border-top border-left border-right"></div>
+    <script src="/socket.io/socket.io.min.js"></script>
+  <% } %>
+
+  <script src="/js/jquery.3.3.1.min.js"></script>
+  <script src="/js/popper.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script>$('[data-toggle="tooltip"]').tooltip()</script>
+  <script>
+    // Reset forms on browsers autofill them
+    const resetForm = setInterval(() => {
+      Array.from(document.forms).forEach(form => form.reset());
+    });
+
+    setTimeout(() => clearInterval(resetForm), 750);
+  </script>
+  <script src="/js/iziToast.min.js"></script>
+  <%- include('showMessages') %>
+  <script src="/js/main-bundled.js"></script>
