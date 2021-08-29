@@ -3,7 +3,7 @@ const { MongoClient } = require('mongodb');
 const dotenv = require('dotenv');
 
 
-dotenv.config({ path: './config/.env' });
+process.env.NODE_ENV !== 'production' && dotenv.config({ path: './config/.env' });
 
 
 const connectionString = process.env.NODE_ENV === 'production' ? process.env.DB : process.env.DEV_DB;
