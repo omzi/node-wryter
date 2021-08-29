@@ -27,7 +27,7 @@ const router = require('./src/router');
 const prodEnv = process.env.NODE_ENV === 'production';
 
 
-const sessionOptions = session({
+const sessionOptions = {
   secret: 'n5k3zuiHU8tAEh9oV4Q0jrbU',
   store: MongoStore.create({
     client: require('./db'),
@@ -39,7 +39,7 @@ const sessionOptions = session({
     maxAge: 1000 * 60 * 60 * 24 * 14, // Expires in 14 days
     httpOnly: true
   }
-})
+}
 
 const app = express();
 
@@ -53,6 +53,8 @@ if (prodEnv) {
   sessionOptions.cookie.secure = true; // Serve secure cookies in production
   app.set('trust proxy', 1); // Trust first proxy
 }
+
+session(sessionOptions);
 
 !prodEnv && app.use(require('morgan')('dev'));
 
